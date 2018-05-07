@@ -549,6 +549,7 @@ static void mod_sqrt_secp224r1(uECC_word_t *a, uECC_Curve curve) {
     uECC_word_t e0[num_words_secp224r1];
     uECC_word_t f0[num_words_secp224r1];
     uECC_word_t d1[num_words_secp224r1];
+    ((void)curve);
 
     /* s = a; using constant instead of random value */
     mod_sqrt_secp224r1_rp(d0, e0, f0, a, a);           /* RP (d0, e0, f0, c, s) */
