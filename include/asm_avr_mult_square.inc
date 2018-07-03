@@ -11620,7 +11620,7 @@
     "adc r21, r1 \n\t"             \
     "st z+, r20 \n\t"              \
     "st z+, r21 \n\t"
-    /* Not necessary to move ptrs since we don't support sizes > 32 */
+/* Not necessary to move ptrs since we don't support sizes > 32 */
 
 #define FAST_MULT_ASM_32       \
     "adiw r30, 30 \n\t"        \

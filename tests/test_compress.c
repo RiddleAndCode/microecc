@@ -1,23 +1,15 @@
 /* Copyright 2014, Kenneth MacKay. Licensed under the BSD 2-clause license. */
 
-#include "uECC.h"
+#include "tests.h"
 
-#include <stdio.h>
-#include <string.h>
 
 #ifndef uECC_TEST_NUMBER_OF_ITERATIONS
 #define uECC_TEST_NUMBER_OF_ITERATIONS   256
 #endif
 
-void vli_print(char *str, uint8_t *vli, unsigned int size) {
-  printf("%s ", str);
-  for(unsigned i=0; i<size; ++i) {
-    printf("%02X ", (unsigned)vli[i]);
-  }
-  printf("\n");
-}
 
-int main() {
+
+void test_compress(void) {
   uint8_t public[64];
   uint8_t private[32];
   uint8_t compressed_point[33];
@@ -56,24 +48,14 @@ int main() {
       memset(decompressed_point, 0, sizeof(decompressed_point));
 
       /* Generate arbitrary EC point (public) on Curve */
-      if (!uECC_make_key(public, private, curves[c])) {
-        printf("uECC_make_key() failed\n");
-        continue;
-      }
+      TEST_ASSERT_NOT_EQUAL(uECC_make_key(public, private, curves[c]),0);
 
       /* compress and decompress point */
       uECC_compress(public, compressed_point, curves[c]);
       uECC_decompress(compressed_point, decompressed_point, curves[c]);
 
-      if (memcmp(public, decompressed_point, sizeof(public)) != 0) {
-        printf("Original and decompressed points are not identical!\n");
-        vli_print("Original point =     ", public, sizeof(public));
-        vli_print("Compressed point =   ", compressed_point, sizeof(compressed_point));
-        vli_print("Decompressed point = ", decompressed_point, sizeof(decompressed_point));
-      }
+      TEST_ASSERT_EQUAL(memcmp(public, decompressed_point, sizeof(public)),0);
     }
     printf("\n");
   }
-
-  return 0;
 }

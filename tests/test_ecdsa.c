@@ -1,11 +1,8 @@
 /* Copyright 2014, Kenneth MacKay. Licensed under the BSD 2-clause license. */
 
-#include "uECC.h"
+#include "tests.h"
 
-#include <stdio.h>
-#include <string.h>
-
-int main() {
+void test_ecdsa(void) {
   int i, c;
   uint8_t private[32] = {0};
   uint8_t public[64] = {0};
@@ -35,25 +32,11 @@ int main() {
     for (i = 0; i < 256; ++i) {
       printf(".");
       fflush(stdout);
-
-      if (!uECC_make_key(public, private, curves[c])) {
-        printf("uECC_make_key() failed\n");
-        return 1;
-      }
+      TEST_ASSERT_NOT_EQUAL(uECC_make_key(public, private, curves[c]),0);
       memcpy(hash, public, sizeof(hash));
-
-      if (!uECC_sign(private, hash, sizeof(hash), sig, curves[c])) {
-        printf("uECC_sign() failed\n");
-        return 1;
-      }
-
-      if (!uECC_verify(public, hash, sizeof(hash), sig, curves[c])) {
-        printf("uECC_verify() failed\n");
-        return 1;
-      }
+      TEST_ASSERT_NOT_EQUAL(uECC_sign(private, hash, sizeof(hash), sig, curves[c]),0);
+      TEST_ASSERT_NOT_EQUAL(uECC_verify(public, hash, sizeof(hash), sig, curves[c]),0);
     }
     printf("\n");
   }
-
-  return 0;
 }

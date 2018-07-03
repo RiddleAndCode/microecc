@@ -1,9 +1,14 @@
+file(GLOB TEST_LIB_SOURCES "*.c")
+
 add_executable(test_microecc_app
-    test.c
+    ${TEST_LIB_SOURCES}
+)
+
+target_include_directories(test_microecc_app PUBLIC .
 )
 
 add_subdirectory(Unity)
- 
+
 target_link_libraries(test_microecc_app
     microecc
     Unity
@@ -37,4 +42,5 @@ add_custom_command(TARGET test_microecc_app POST_BUILD
     COMMENT "Creating Gprof results from testing."              
     COMMAND cd ${CMAKE_BINARY_DIR}/tests && gprof test_microecc_app gmon.out > analysis_test_microecc_app)
 
-add_test(test_gcm test_microecc_app)
+
+add_test(test_microecc_app test_microecc_app)
