@@ -11,8 +11,7 @@
 #include "unity.h"
 #include <string.h>
 
-void test_keys_shared_secret_secp160r1()
-{
+void test_keys_shared_secret_secp160r1() {
   const struct uECC_Curve_t *curve = uECC_secp160r1();
 
   uint8_t private1[21];
@@ -33,8 +32,7 @@ void test_keys_shared_secret_secp160r1()
   TEST_ASSERT_EQUAL(memcmp(secret1, secret2, 20), 0);
 }
 
-int main(void)
-{
+int main(void) {
   UNITY_BEGIN();
   RUN_TEST(test_keys_shared_secret_secp160r1);
   return UNITY_END();

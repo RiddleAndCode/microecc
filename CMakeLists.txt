@@ -1,14 +1,36 @@
 project (microecc)
 cmake_minimum_required(VERSION 3.11.4)
 
-
 set(TARGET_GROUP main CACHE STRING "Group to build")
 
-if(CPPCHECK)
-    set(CMAKE_C_CPPCHECK "cppcheck" --enable=warning,performance,portability,style --error-exitcode=1 --force --quiet)
+if(STATIC_ANALYSIS)
+   # find_program(
+        #CLANG_TIDY_EXE
+        #NAMES "clang-tidy"
+        #DOC "Path to clang-tidy executable"
+    #)
+    #if(NOT CLANG_TIDY_EXE)
+        #message(FATAL_ERROR "clang-tidy not found.")
+    #else()
+        #message(STATUS "clang-tidy found: ${CLANG_TIDY_EXE}")
+        #set(CMAKE_C_CLANG_TIDY "${CLANG_TIDY_EXE}" -checks=*,-clang-analyzer-alpha.* -warnings-as-errors=* -fix)
+    #endif()
+
+    find_program(
+        CMAKE_C_CPPCHECK
+        NAMES "cppcheck"
+        DOC "Path to cppcheck executable"
+    )
+    if(NOT CMAKE_C_CPPCHECK)
+        message(FATAL_ERROR "cppcheck not found.")
+    else()
+        message(STATUS "cppcheck found: ${CMAKE_C_CPPCHECK}")
+        set(CMAKE_C_CPPCHECK "${CMAKE_C_CPPCHECK}" --enable=warning,performance,portability,style --error-exitcode=1 --force --quiet)
+    endif()
 endif()
 
-add_compile_options(-Wall -pedantic -g -O0 --coverage)
+add_compile_options(-DuECC_VLI_NATIVE_LITTLE_ENDIAN=0 -std=c99 -Wall -Wextra -Werror -g -O1 --coverage -fsanitize=address -fno-omit-frame-pointer -pg)
+SET(CMAKE_EXE_LINKER_FLAGS "-DuECC_VLI_NATIVE_LITTLE_ENDIAN=0 -std=c99 -Wall -Wextra -Werror -pedantic -g -O1 --coverage -fsanitize=address -fno-omit-frame-pointer -pg ${CMAKE_EXE_LINKER_FLAGS}")
 
 add_subdirectory(src)
 

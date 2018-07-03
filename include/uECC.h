@@ -27,52 +27,52 @@ platform. */
    Optimization level 4 currently only has an effect ARM platforms where more than one
    curve is enabled. */
 #ifndef uECC_OPTIMIZATION_LEVEL
-    #define uECC_OPTIMIZATION_LEVEL 2
+#define uECC_OPTIMIZATION_LEVEL 2
 #endif
 
 /* uECC_SQUARE_FUNC - If enabled (defined as nonzero), this will cause a specific function to be
 used for (scalar) squaring instead of the generic multiplication function. This can make things
 faster somewhat faster, but increases the code size. */
 #ifndef uECC_SQUARE_FUNC
-    #define uECC_SQUARE_FUNC 0
+#define uECC_SQUARE_FUNC 0
 #endif
 
 /* uECC_VLI_NATIVE_LITTLE_ENDIAN - If enabled (defined as nonzero), this will switch to native
-little-endian format for *all* arrays passed in and out of the public API. This includes public 
-and private keys, shared secrets, signatures and message hashes. 
+little-endian format for *all* arrays passed in and out of the public API. This includes public
+and private keys, shared secrets, signatures and message hashes.
 Using this switch reduces the amount of call stack memory used by uECC, since less intermediate
-translations are required. 
+translations are required.
 Note that this will *only* work on native little-endian processors and it will treat the uint8_t
-arrays passed into the public API as word arrays, therefore requiring the provided byte arrays 
+arrays passed into the public API as word arrays, therefore requiring the provided byte arrays
 to be word aligned on architectures that do not support unaligned accesses.
 IMPORTANT: Keys and signatures generated with uECC_VLI_NATIVE_LITTLE_ENDIAN=1 are incompatible
 with keys and signatures generated with uECC_VLI_NATIVE_LITTLE_ENDIAN=0; all parties must use
 the same endianness. */
 #ifndef uECC_VLI_NATIVE_LITTLE_ENDIAN
-    #define uECC_VLI_NATIVE_LITTLE_ENDIAN 0
+#define uECC_VLI_NATIVE_LITTLE_ENDIAN 0
 #endif
 
 /* Curve support selection. Set to 0 to remove that curve. */
 #ifndef uECC_SUPPORTS_secp160r1
-    #define uECC_SUPPORTS_secp160r1 1
+#define uECC_SUPPORTS_secp160r1 1
 #endif
 #ifndef uECC_SUPPORTS_secp192r1
-    #define uECC_SUPPORTS_secp192r1 1
+#define uECC_SUPPORTS_secp192r1 1
 #endif
 #ifndef uECC_SUPPORTS_secp224r1
-    #define uECC_SUPPORTS_secp224r1 1
+#define uECC_SUPPORTS_secp224r1 1
 #endif
 #ifndef uECC_SUPPORTS_secp256r1
-    #define uECC_SUPPORTS_secp256r1 1
+#define uECC_SUPPORTS_secp256r1 1
 #endif
 #ifndef uECC_SUPPORTS_secp256k1
-    #define uECC_SUPPORTS_secp256k1 1
+#define uECC_SUPPORTS_secp256k1 1
 #endif
 
 /* Specifies whether compressed point format is supported.
    Set to 0 to disable point compression/decompression functions. */
 #ifndef uECC_SUPPORT_COMPRESSED_POINT
-    #define uECC_SUPPORT_COMPRESSED_POINT 1
+#define uECC_SUPPORT_COMPRESSED_POINT 1
 #endif
 
 struct uECC_Curve_t;
@@ -300,14 +300,14 @@ void finish_SHA256(uECC_HashContext *base, uint8_t *hash_result) {
 }
 */
 typedef struct uECC_HashContext {
-    void (*init_hash)(const struct uECC_HashContext *context);
-    void (*update_hash)(const struct uECC_HashContext *context,
-                        const uint8_t *message,
-                        unsigned message_size);
-    void (*finish_hash)(const struct uECC_HashContext *context, uint8_t *hash_result);
-    unsigned block_size; /* Hash function block size in bytes, eg 64 for SHA-256. */
-    unsigned result_size; /* Hash function result size in bytes, eg 32 for SHA-256. */
-    uint8_t *tmp; /* Must point to a buffer of at least (2 * result_size + block_size) bytes. */
+  void (*init_hash)(const struct uECC_HashContext *context);
+  void (*update_hash)(const struct uECC_HashContext *context,
+                      const uint8_t *message,
+                      unsigned message_size);
+  void (*finish_hash)(const struct uECC_HashContext *context, uint8_t *hash_result);
+  unsigned block_size; /* Hash function block size in bytes, eg 64 for SHA-256. */
+  unsigned result_size; /* Hash function result size in bytes, eg 32 for SHA-256. */
+  uint8_t *tmp; /* Must point to a buffer of at least (2 * result_size + block_size) bytes. */
 } uECC_HashContext;
 
 /* uECC_sign_deterministic() function.
