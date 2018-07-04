@@ -5,7 +5,7 @@
             sh 'mkdir -p build && cd build && cmake ../ -DTARGET_GROUP=test -DSTATIC_ANALYSIS=1  '
         }
         stage('Build') {
-            sh 'cd build'
+            sh 'cd build && ls'
             sh 'make'
         }
         stage('Testing') {
