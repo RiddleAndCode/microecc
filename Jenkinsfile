@@ -4,13 +4,14 @@
         stage('Generating build') {
             sh 'mkdir -p build && cd build && cmake ../ -DTARGET_GROUP=test -DSTATIC_ANALYSIS=1  '
         }
-        stage('Build') {
-            sh 'cd build && ls'
-            sh 'make'
-        }
-        stage('Testing') {
-            sh 'cd build'
-            sh 'make check'
+        dir("build")
+        {
+            stage('Build') {
+                sh 'make'
+            }
+            stage('Testing') {
+                sh 'make check'
+            }
         }
     }
 }
