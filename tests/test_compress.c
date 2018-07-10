@@ -59,3 +59,9 @@ void test_compress(void) {
     printf("\n");
   }
 }
+
+int main(void) {
+  UNITY_BEGIN();
+  RUN_TEST(test_compress);
+  return UNITY_END();
+}

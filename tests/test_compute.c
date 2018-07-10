@@ -56,3 +56,9 @@ void test_compute(void) {
   }
 
 }
+
+int main(void) {
+  UNITY_BEGIN();
+  RUN_TEST(test_compute);
+  return UNITY_END();
+}

@@ -11,6 +11,8 @@
             }
             stage('Testing') {
                 sh 'make check'
+                sh 'xsltproc /opt/ctest/ctest2junix.xsl Testing/`head -n 1 < Testing/TAG`/Test.xml > CTestResults.xml
+'               junit "CTestResults.xml"
             }
         }
     }

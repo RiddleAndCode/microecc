@@ -30,13 +30,13 @@ if(STATIC_ANALYSIS)
 endif()
 
 
-add_subdirectory(src)
 
 if(TARGET_GROUP STREQUAL main)
-    message(SKIP "Nothing to do...")
+    add_subdirectory(src)
 elseif(TARGET_GROUP STREQUAL test)
-    add_compile_options(-DuECC_VLI_NATIVE_LITTLE_ENDIAN=0 -std=c99 -Wall -Wextra -Werror -g -O1 --coverage -fsanitize=address -fno-omit-frame-pointer -pg)
-    SET(CMAKE_EXE_LINKER_FLAGS "-DuECC_VLI_NATIVE_LITTLE_ENDIAN=0 -std=c99 -Wall -Wextra -Werror -pedantic -g -O1 --coverage -fsanitize=address -fno-omit-frame-pointer -pg ${CMAKE_EXE_LINKER_FLAGS}")
+    add_compile_options(-DuECC_VLI_NATIVE_LITTLE_ENDIAN=0 -std=c99 -Wall -Wextra -Werror -O1 --coverage -fsanitize=address -fno-omit-frame-pointer)
+    SET(CMAKE_EXE_LINKER_FLAGS "-DuECC_VLI_NATIVE_LITTLE_ENDIAN=0 -std=c99 -Wall -Wextra -Werror -pedantic -O1 --coverage -fsanitize=address -fno-omit-frame-pointer ${CMAKE_EXE_LINKER_FLAGS}")
+    add_subdirectory(src)    
     include(CTest)
     add_subdirectory(tests)
 else()

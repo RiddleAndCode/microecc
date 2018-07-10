@@ -40,3 +40,9 @@ void test_ecdsa(void) {
     printf("\n");
   }
 }
+
+int main(void) {
+  UNITY_BEGIN();
+  RUN_TEST(test_ecdsa);
+  return UNITY_END();
+}

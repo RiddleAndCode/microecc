@@ -48,3 +48,9 @@ void test_ecdh(void) {
   }
 
 }
+
+int main(void) {
+  UNITY_BEGIN();
+  RUN_TEST(test_ecdh);
+  return UNITY_END();
+}
