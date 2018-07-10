@@ -1,4 +1,4 @@
- node('builder'){
+node('builder'){
     docker.image('diogorac/rnc_builder').inside('--privileged') {
         checkout scm
         stage('Generating build') {
@@ -11,8 +11,9 @@
             }
             stage('Testing') {
                 sh 'make check'
-                sh 'xsltproc /opt/ctest/ctest2junix.xsl Testing/`head -n 1 < Testing/TAG`/Test.xml > CTestResults.xml'
+                sh 'xsltproc /opt/ctest/ctest2junix.xsl tests/Testing/$(head -1 tests/Testing/TAG)/Test.xml > CTestResults.xml'
                 junit 'CTestResults.xml'
+                cobertura coberturaReportFile: 'coverage.xml'
             }
         }
     }
