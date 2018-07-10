@@ -4,13 +4,13 @@ node('builder'){
         stage('Generating build') {
             sh 'mkdir -p build && cd build && cmake ../ -DTARGET_GROUP=test -DSTATIC_ANALYSIS=1  '
         }
-        dir('build')
-        {
-            stage('Coding Guideline')
+        stage('Coding Guideline')
             {
                 sh 'astyle "src/*.c" "include/*.h" --style=google -s2'
                 sh 'if [ $(find . -iname "*.orig" | wc -l) != 0 ]; then echo "According to guideline."; else exit(1); fi'
             }
+        dir('build')
+        {
             stage('Build') {
                 sh 'make'
             }
