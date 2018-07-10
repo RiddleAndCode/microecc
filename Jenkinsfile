@@ -7,7 +7,7 @@ node('builder'){
         stage('Coding Guideline')
             {
                 sh 'astyle "src/*.c" "include/*.h" --style=google -s2'
-                sh 'if [ $(find . -iname "*.orig" | wc -l) != 0 ]; then echo "According to guideline."; else exit(1); fi'
+                sh 'echo \'if [ $(find . -iname "*.orig" | wc -l) -eq 0 ]; then echo "According to guideline."; else echo "Not according to guideline" && exit 1; fi\' > guide && sh guide'
             }
         dir('build')
         {
