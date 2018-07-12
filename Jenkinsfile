@@ -1,12 +1,14 @@
 node('builder'){
     docker.image('diogorac/rnc_builder').inside('--privileged') {
-        checkout scm
+        
+        scmv = checkout scm
         def server = Artifactory.server 'conan'
         def client = Artifactory.newConanClient()
         def serverName = client.remote.add server: server, repo: "conan-local"
         
         stage('Generating build') {
-            client.run(command: "create . " + env.BRANCH_NAME + "/stage")
+            // When making pull request make sure only develop and master push to conan
+            client.run(command: "create . " + scmv.GIT_BRANCH + "/" + scmv.GIT_COMMIT.take(6))
             sh 'mkdir -p build && cd build && cmake ../ -DTARGET_GROUP=test -DSTATIC_ANALYSIS=1  '
         }
         stage('Coding Guideline') {
