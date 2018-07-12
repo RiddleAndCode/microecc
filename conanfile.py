@@ -14,6 +14,10 @@ class MicroeccConan(ConanFile):
     exports_sources = "src/*", "include/*", "*"
 
     def build(self):
+        tools.replace_in_file("CMakeLists.txt", "project (microecc)",
+                '''project(microecc)
+                include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+                conan_basic_setup()''')
         self.run('cmake .')
         self.run('cmake --build .')
 

@@ -1,9 +1,6 @@
 project (microecc)
 cmake_minimum_required(VERSION 3.11.4)
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
-
 set(TARGET_GROUP main CACHE STRING "Group to build")
 
 if(STATIC_ANALYSIS)
