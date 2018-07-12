@@ -1,6 +1,9 @@
 project (microecc)
 cmake_minimum_required(VERSION 3.11.4)
 
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
+
 set(TARGET_GROUP main CACHE STRING "Group to build")
 
 if(STATIC_ANALYSIS)
@@ -33,6 +36,7 @@ endif()
 
 if(TARGET_GROUP STREQUAL main)
     add_subdirectory(src)
+    target_link_libraries(microecc ${CONAN_LIBS})
 elseif(TARGET_GROUP STREQUAL test)
     add_compile_options(-DuECC_VLI_NATIVE_LITTLE_ENDIAN=0 -std=c99 -Wall -Wextra -Werror -O1 --coverage -fsanitize=address -fno-omit-frame-pointer)
     SET(CMAKE_EXE_LINKER_FLAGS "-DuECC_VLI_NATIVE_LITTLE_ENDIAN=0 -std=c99 -Wall -Wextra -Werror -pedantic -O1 --coverage -fsanitize=address -fno-omit-frame-pointer ${CMAKE_EXE_LINKER_FLAGS}")
