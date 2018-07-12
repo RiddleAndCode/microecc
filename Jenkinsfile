@@ -1,7 +1,12 @@
 node('builder'){
     docker.image('diogorac/rnc_builder').inside('--privileged') {
         checkout scm
+        def server = Artifactory.server 'conan'
+        def client = Artifactory.newConanClient()
+        def serverName = client.remote.add server: server, repo: "conan-local"
+        
         stage('Generating build') {
+            client.run(command: "create . " + env.BRANCH_NAME + "/stage")
             sh 'mkdir -p build && cd build && cmake ../ -DTARGET_GROUP=test -DSTATIC_ANALYSIS=1  '
         }
         stage('Coding Guideline') {
@@ -19,6 +24,11 @@ node('builder'){
                 junit 'CTestResults.xml'
                 cobertura coberturaReportFile: 'coverage.xml'
             }
+        }
+        stage('Pushing to Artifactory') {
+            String command = "upload * --all -r ${serverName} --confirm"
+            def b = client.run(command: command)
+            server.publishBuildInfo b
         }
     }
 }
