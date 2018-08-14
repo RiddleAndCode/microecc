@@ -1,5 +1,5 @@
-project (microecc)
 cmake_minimum_required(VERSION 3.11.4)
+project (microecc)
 
 set(TARGET_GROUP main CACHE STRING "Group to build")
 
@@ -33,8 +33,9 @@ endif()
 
 if(TARGET_GROUP STREQUAL main)
     add_subdirectory(src)
-elseif(TARGET_GROUP STREQUAL test)
+elseif(TARGET_GROUP STREQUAL all)
     add_compile_options(-DuECC_VLI_NATIVE_LITTLE_ENDIAN=0 -std=c99 -Wall -Wextra -Werror -O1 --coverage -fsanitize=address -fno-omit-frame-pointer)
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fvisibility=hidden")
     SET(CMAKE_EXE_LINKER_FLAGS "-DuECC_VLI_NATIVE_LITTLE_ENDIAN=0 -std=c99 -Wall -Wextra -Werror -pedantic -O1 --coverage -fsanitize=address -fno-omit-frame-pointer ${CMAKE_EXE_LINKER_FLAGS}")
     add_subdirectory(src)    
     include(CTest)

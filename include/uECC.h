@@ -5,6 +5,9 @@
 
 #include <stdint.h>
 
+
+#define API_EXPORT __attribute__ ((visibility ("default")))
+
 /* Platform selection options.
 If uECC_PLATFORM is not defined, the code will try to guess it based on compiler macros.
 Possible values for uECC_PLATFORM are defined below: */
@@ -84,19 +87,19 @@ extern "C"
 #endif
 
 #if uECC_SUPPORTS_secp160r1
-uECC_Curve uECC_secp160r1(void);
+uECC_Curve API_EXPORT uECC_secp160r1(void);
 #endif
 #if uECC_SUPPORTS_secp192r1
-uECC_Curve uECC_secp192r1(void);
+uECC_Curve API_EXPORT uECC_secp192r1(void);
 #endif
 #if uECC_SUPPORTS_secp224r1
-uECC_Curve uECC_secp224r1(void);
+uECC_Curve API_EXPORT uECC_secp224r1(void);
 #endif
 #if uECC_SUPPORTS_secp256r1
-uECC_Curve uECC_secp256r1(void);
+uECC_Curve API_EXPORT uECC_secp256r1(void);
 #endif
 #if uECC_SUPPORTS_secp256k1
-uECC_Curve uECC_secp256k1(void);
+uECC_Curve API_EXPORT uECC_secp256k1(void);
 #endif
 
 /* uECC_RNG_Function type
@@ -127,25 +130,25 @@ be called before uECC_make_key() or uECC_sign() are used.
 Inputs:
     rng_function - The function that will be used to generate random bytes.
 */
-void uECC_set_rng(uECC_RNG_Function rng_function);
+void API_EXPORT uECC_set_rng(uECC_RNG_Function rng_function);
 
 /* uECC_get_rng() function.
 
 Returns the function that will be used to generate random bytes.
 */
-uECC_RNG_Function uECC_get_rng(void);
+uECC_RNG_Function API_EXPORT uECC_get_rng(void);
 
 /* uECC_curve_private_key_size() function.
 
 Returns the size of a private key for the curve in bytes.
 */
-int uECC_curve_private_key_size(uECC_Curve curve);
+int API_EXPORT uECC_curve_private_key_size(uECC_Curve curve);
 
 /* uECC_curve_public_key_size() function.
 
 Returns the size of a public key for the curve in bytes.
 */
-int uECC_curve_public_key_size(uECC_Curve curve);
+int API_EXPORT uECC_curve_public_key_size(uECC_Curve curve);
 
 /* uECC_make_key() function.
 Create a public/private key pair.
@@ -163,7 +166,7 @@ Outputs:
 
 Returns 1 if the key pair was generated successfully, 0 if an error occurred.
 */
-int uECC_make_key(uint8_t *public_key, uint8_t *private_key, uECC_Curve curve);
+int API_EXPORT uECC_make_key(uint8_t *public_key, uint8_t *private_key, uECC_Curve curve);
 
 /* uECC_shared_secret() function.
 Compute a shared secret given your secret key and someone else's public key.
@@ -180,7 +183,7 @@ Outputs:
 
 Returns 1 if the shared secret was generated successfully, 0 if an error occurred.
 */
-int uECC_shared_secret(const uint8_t *public_key,
+int API_EXPORT uECC_shared_secret(const uint8_t *public_key,
                        const uint8_t *private_key,
                        uint8_t *secret,
                        uECC_Curve curve);
@@ -197,7 +200,7 @@ Outputs:
                  (curve size + 1) bytes long; for example, if the curve is secp256r1,
                  compressed must be 33 bytes long.
 */
-void uECC_compress(const uint8_t *public_key, uint8_t *compressed, uECC_Curve curve);
+void API_EXPORT uECC_compress(const uint8_t *public_key, uint8_t *compressed, uECC_Curve curve);
 
 /* uECC_decompress() function.
 Decompress a compressed public key.
@@ -208,7 +211,7 @@ Inputs:
 Outputs:
     public_key - Will be filled in with the decompressed public key.
 */
-void uECC_decompress(const uint8_t *compressed, uint8_t *public_key, uECC_Curve curve);
+void API_EXPORT uECC_decompress(const uint8_t *compressed, uint8_t *public_key, uECC_Curve curve);
 #endif /* uECC_SUPPORT_COMPRESSED_POINT */
 
 /* uECC_valid_public_key() function.
@@ -223,7 +226,7 @@ Inputs:
 
 Returns 1 if the public key is valid, 0 if it is invalid.
 */
-int uECC_valid_public_key(const uint8_t *public_key, uECC_Curve curve);
+int API_EXPORT uECC_valid_public_key(const uint8_t *public_key, uECC_Curve curve);
 
 /* uECC_compute_public_key() function.
 Compute the corresponding public key for a private key.
@@ -236,7 +239,7 @@ Outputs:
 
 Returns 1 if the key was computed successfully, 0 if an error occurred.
 */
-int uECC_compute_public_key(const uint8_t *private_key, uint8_t *public_key, uECC_Curve curve);
+int API_EXPORT uECC_compute_public_key(const uint8_t *private_key, uint8_t *public_key, uECC_Curve curve);
 
 /* uECC_sign() function.
 Generate an ECDSA signature for a given hash value.
@@ -255,7 +258,7 @@ Outputs:
 
 Returns 1 if the signature generated successfully, 0 if an error occurred.
 */
-int uECC_sign(const uint8_t *private_key,
+int API_EXPORT uECC_sign(const uint8_t *private_key,
               const uint8_t *message_hash,
               unsigned hash_size,
               uint8_t *signature,
@@ -331,7 +334,7 @@ Outputs:
 
 Returns 1 if the signature generated successfully, 0 if an error occurred.
 */
-int uECC_sign_deterministic(const uint8_t *private_key,
+int API_EXPORT uECC_sign_deterministic(const uint8_t *private_key,
                             const uint8_t *message_hash,
                             unsigned hash_size,
                             const uECC_HashContext *hash_context,
@@ -352,7 +355,7 @@ Inputs:
 
 Returns 1 if the signature is valid, 0 if it is invalid.
 */
-int uECC_verify(const uint8_t *public_key,
+int API_EXPORT uECC_verify(const uint8_t *public_key,
                 const uint8_t *message_hash,
                 unsigned hash_size,
                 const uint8_t *signature,

@@ -2,7 +2,7 @@ node('builder'){
     docker.image('diogorac/rnc_builder').inside('--privileged') {
         checkout scm
         stage('Generating build') {
-            sh 'mkdir -p build && cd build && cmake ../ -DTARGET_GROUP=test -DSTATIC_ANALYSIS=1  '
+            sh 'mkdir -p build && cd build && cmake ../ -DTARGET_GROUP=all -DSTATIC_ANALYSIS=1  '
         }
         stage('Coding Guideline') {
                 sh 'astyle "src/*.c" "include/*.h" "tests/*.c" "tests/*.h" --style=google -s2'
