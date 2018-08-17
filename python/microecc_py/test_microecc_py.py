@@ -17,10 +17,10 @@ class TestMicroECCPy:
 
     def _get_random_curve(self):
         curves = [
-            'secp160r1',
-            'secp192r1',
-            'secp224r1',
-            'secp256k1',
+            'SECP160r1',
+            'SECP192r1',
+            'SECP224r1',
+            'SECP256k1',
         ]
 
         random.seed()
