@@ -20,7 +20,13 @@ $ source venv/bin/activate  # or similar
 
 **This package requires **Python 2.7 / 3+**
 
-On the other hand, in order to make the wrapper work, you must have the compiled file of _microecc_ (**libmicroecc.so**) in a common place like _/usr/local/lib_ (this is the recommend place). It's also possible to indicate the full path of the library when you instantiate the wrapper.
+On the other hand, in order to make the wrapper work, you must have the compiled file of _microecc_ (**libmicroecc.so**) in a common place like _/usr/local/lib_ (this is the recommended folder). After placing the file please use the _ldconfig_ command to update the dynamic-linked libraries:
+
+```shell
+$ sudo ldconfig
+```
+
+It's also possible to indicate the full path of the library when you instantiate the wrapper.
 
 ```python
 m = MicroECCPy(library_path='/full/path/to/libmicroecc.so')
