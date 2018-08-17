@@ -16,6 +16,7 @@ class MicroECCPy:
         default_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'libmicroecc.so')
 
         self.lib = ctypes.CDLL(library_path or default_path)
+        self.lib = ctypes.CDLL(library_path or 'libmicroecc.so')
 
         # curve
         get_curve = getattr(self.lib, f'uECC_{curve_name.lower()}')

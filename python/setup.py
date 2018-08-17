@@ -17,7 +17,4 @@ setup(
     author_email='leon@riddleandcode.com',
     url='https://www.riddleandcode.com',
     packages=['microecc_py'],
-    package_data={
-        'microecc_py': ['libmicroecc.so'],
-    },
 )
