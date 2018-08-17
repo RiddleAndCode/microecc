@@ -17,10 +17,15 @@ class TestMicroECCPy:
 
     def _get_random_curve(self):
         curves = [
-            'SECP160r1',
-            'SECP192r1',
-            'SECP224r1',
-            'SECP256k1',
+            'secp160r1',
+            'secp192r1',
+            'secp224r1',
+            'secp256k1',
+            # to verify is case-insentitive
+            'SECP160R1',
+            'SECP192R1',
+            'SECP224R1',
+            'SECP256K1',
         ]
 
         random.seed()
@@ -75,7 +80,7 @@ class TestMicroECCPy:
 
     def test__shared_secret__secp192r1(self):
 
-        m = self._get_lib(curve_name='secp192r1')
+        m = self._get_lib(curve_name='SECP192R1')
 
         public_key1, private_key1 = m.get_random_keypair()
         public_key2, private_key2 = m.get_random_keypair()
@@ -127,7 +132,7 @@ class TestMicroECCPy:
 
     def test__compress__decompress__secp160r1(self):
 
-        m = self._get_lib(curve_name='secp160r1')
+        m = self._get_lib(curve_name='SECP160R1')
 
         public_key, private_key = m.get_random_keypair()
 
