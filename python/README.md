@@ -168,3 +168,10 @@ and run the following command, being inside the _/microecc/python_ folder:
 $ pip install -r requirements.txt
 $ pytest -v microecc_py/
 ```
+
+If you have problems running the tests because the file _libmicroecc.so_ can't be found (by default it tries at _/usr/local/lib/libmicroecc.so_), run it this way:
+
+```shell
+$ pip install -r requirements.txt
+$ export LIBRARY_PATH="/full/path/to/libmicroecc.so" ; pytest -v microecc_py/
+```

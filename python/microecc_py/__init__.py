@@ -1,7 +1,6 @@
 import ctypes
 import hashlib
 import binascii
-import os
 
 
 class MicroECCPy:
@@ -13,9 +12,6 @@ class MicroECCPy:
             curve_name <str> : "secp256r1" (default), "secp160r1", "secp192r1", "secp224r1", "secp256k1"
         """
 
-        default_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'libmicroecc.so')
-
-        self.lib = ctypes.CDLL(library_path or default_path)
         self.lib = ctypes.CDLL(library_path or 'libmicroecc.so')
 
         # curve

@@ -2,17 +2,15 @@ import pytest
 import binascii
 import hashlib
 import re
-# import os
+import os
 from . import MicroECCPy
-
-# LIBRARY_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'libmicroecc.so')
 
 
 class TestMicroECCPy:
 
     def test__public_from_private(self):
 
-        m = MicroECCPy()  # library_path=LIBRARY_PATH)
+        m = MicroECCPy(library_path=os.getenv('LIBRARY_PATH', '/usr/local/lib/libmicroecc.so'))
 
         public_key, private_key = m.get_random_keypair()
 
