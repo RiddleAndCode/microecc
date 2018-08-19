@@ -26,7 +26,7 @@ Now, the package should be installed. You can get rid of the cloned (or unziped)
 $ source venv/bin/activate  # or similar
 ```
 
-**This package requires **Python 2.7 / 3+**
+**This package requires **Python 3+**
 
 On the other hand, in order to make the wrapper work, you must have the compiled file of _microecc_ (**libmicroecc.so**) in a common place like _/usr/local/lib_ (this is the recommended folder). After placing the file please use the _ldconfig_ command to update the dynamic-linked libraries:
 
