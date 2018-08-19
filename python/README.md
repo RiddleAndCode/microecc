@@ -2,17 +2,27 @@
 
 ## Install
 
-Firstly, clone the "parent" project (git@github.com:RiddleAndCode/microecc.git) somewhere (outside your project folder) and cd into the **python** folder. Just run the following commands:
+Firstly, clone the "parent" project (git@github.com:RiddleAndCode/microecc.git) or unzip it (you can get it herew: https://github.com/RiddleAndCode/microecc/archive/master.zip) somewhere (outside your project folder) and cd into the **python** folder. Just run the following commands:
 
 ```shell
 $ git clone git@github.com:RiddleAndCode/microecc.git
+# or...
+# unzip microecc-master.zip
 $ cd microecc/python/
+$ python setup.py install
+```
+
+or...
+
+```shell
+$ unzip microecc-master.zip
+$ cd microecc-master/python/
 $ python setup.py install
 ```
 
 Now, the package should be installed. You can get rid of the cloning folder.
 
-*Please, notice that you'll have to activate the corresponding environment where you want to install the package beforehand.
+*Please, notice that you'll have to activate the corresponding environment where you want to install the package to beforehand.
 
 ```shell
 $ source venv/bin/activate  # or similar
